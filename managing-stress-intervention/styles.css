@@ -278,7 +278,7 @@ li {
     font-weight: 700;
     padding: 25px;
     border-radius: 20px;
-    background-color: rgb(104, 176, 77);
+    background-color: #0D76BA;
     margin-bottom: 120px;
     font-size: 18px;
 }
@@ -334,6 +334,16 @@ li {
     display: inline-block;
     width: 1em;
     margin-right: 0.5em;
+}
+
+.box {
+    border: 3px solid #2c80da65;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.max-witdth-450 {
+    max-width: 450px;
 }
 
 /* Media Queries for Responsiveness */
