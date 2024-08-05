@@ -17,7 +17,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     const ENCRYPTION_SECRET_KEY = 'o~HR\xe72\xb4\xa4\xe9\xc4R&-`\xb0om\xca\xa5\x0494\xc7\xed\xce8/"V\xa0\xfcG';
     const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), ENCRYPTION_SECRET_KEY).toString();
 
-    fetch('http://demo3932735.mockable.io/register', {
+    fetch('https://demo3932735.mockable.io/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
