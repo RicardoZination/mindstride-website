@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+    }
+
+    .header {
+      padding: 20px 30px;
+      text-align: left;
+      color: #000000;
+    }
+
+    .header img {
+      max-width: 200px;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: normal;
+    }
+
+    .bg-image {
+      background: url('https://res.cloudinary.com/dyjkosr1l/image/upload/v1723057919/header_1_ppxdit.png') no-repeat center center;
+      background-size: cover;
+      height: 250px;
+    }
+
+    .content {
+      padding: 20px 30px;
+    }
+
+    .title {
+      font-style: italic;
+      font-size: 20px;
+      font-weight: normal,
+    }
+
+    .content h2 {
+      color: #333333;
+    }
+
+    .content p {
+      color: #666666;
+      line-height: 1.6;
+    }
+
+    .button-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .button-container a {
+      background-color: #007BFF;
+      color: #ffffff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .video-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .video-container img {
+      max-width: 100%;
+      height: auto;
+      border: none;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    .footer {
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .footer p {
+      line-height: 0.5;
+    }
+
+    .flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .align-items-center {
+      align-items: center;
+    }
+
+    .flex .left {
+      max-width: 60%;
+    }
+
+    .video-section {
+      background-color: #f2f2f2;
+      padding: 20px 30px;
+    }
+
+    .video-image {
+      width: 200px;
+    }
+
+    .flex-row {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .flex-row .left {
+      max-width: 100%;
+    }
+
+    @media (max-width: 480px) {
+      .flex {
+        flex-direction: column;
+      }
+
+      .content {
+      padding: 20px;
+    }
+
+      .flex .left {
+        max-width: 100%;
+      }
+
+      .container {
+        text-align: center;
+      }
+
+      .header {
+        text-align: center;
+      }
+
+      .bg-image {
+        background-size: contain;
+        margin-top: -10px;
+        margin-bottom: -10px;
+      }
+
+      .video-image {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://res.cloudinary.com/dyjkosr1l/image/upload/v1723057927/MindSpring_color_horz_3_1_n0bhrw.png"
+        alt="Mindstride">
+      <h1 class="title">Transforming Mental Health One Stride at a Time</h1>
+    </div>
+    <div class="bg-image"></div>
+    <div class="content">
+      <h2 style="text-align: center">Welcome to Mindstride Health</h2>
+      <div class="flex flex-row">
+        <div class="left">
+          <p>We are delighted to welcome you to Mindstride!</p>
+          <p>Your employer, [Employer's Name], has partnered with us to provide you with comprehensive mental health
+            care support as part of their commitment to <br> your well-being.</p>
+        </div>
+        <div>
+          <p>To get started, please click the register button below:​</p>
+          <div class="button-container">
+            <a href="https://www.mindstride.ai/userappregisterform" target="_blank">Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="video-section">
+      <h2>Your Mental Health Is Our Priority</h2>
+      <div class="flex align-items-center">
+        <div class="video-container">
+          <a href="https://youtu.be/dV8ANolTFAc" target="_blank">
+            <img class="video-image"
+              src="https://res.cloudinary.com/dyjkosr1l/image/upload/v1723151145/MicrosoftTeams-image_mfibub.png"
+              alt="Mindstride Overview">
+          </a>
+        </div>
+        <div class="left">
+          <p>At Mindstride, we believe mental health care is essential to our overall health and quality-of-life.</p>
+          <p>Our mission is to provide accessible, personalized, and confidential mental health services, supporting you
+            every step of the way.</p>
+        </div>
+      </div>
+    </div>
+    <div class="content" style="text-align: center;">
+      <p style="font-size: 12px">All interactions with Mindstride are confidential, ensuring your privacy and comfort.
+        Participation is
+        voluntary, and a wide range of mental health and primary care resources tailored to you are available.</p>
+      <p style="font-size: 12px">For more information on how we protect your privacy, please refer to our <a
+          href="https://www.mindstride.ai/privacy" target="_blank">Privacy Policy</a>.</p>
+    </div>
+    <div class="footer">
+      <img style="height: 30px; margin-bottom: -5px"
+        src="https://res.cloudinary.com/dyjkosr1l/image/upload/v1723062344/MindStride_horz_black_cckmhk.svg"
+        alt="Mindstride">
+      <p style="font-size: 12px">(343) 809-5972</p>
+      <p style="font-size: 12px">&copy; Mindstride - All Rights Reserved</p>
+    </div>
+  </div>
+</body>
+
+</html>
