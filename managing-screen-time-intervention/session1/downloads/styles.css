@@ -1,0 +1,98 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.download-table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.download-table td,
+.download-table th {
+    border: none;
+}
+
+.download-table td {
+    vertical-align: middle;
+}
+
+.download-link {
+    text-align: right;
+}
+
+.footer {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 40px;
+    padding: 10px 0;
+}
+
+hr {
+    border: none;
+    border-top: 2px solid #CCC9C9;
+}
+
+.download-table tr {
+    border-bottom: 2px solid #CCC9C9;
+    border-top: none;
+}
+
+.header-icon {
+    width: 268px;
+    margin-bottom: 60px;
+}
+
+.footer-icon {
+    width: 180px;
+}
+
+.margin-bottom-text {
+    margin-bottom: 40px;
+}
+
+.margin-bottom-email {
+    margin-bottom: 100px;
+}
+
+.margin-bottom-table {
+    margin-bottom: 80px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .header-icon {
+        width: 159px;
+        margin-bottom: 30px;
+    }
+    
+    .footer-icon {
+        width: 120px;
+    }
+
+    .margin-bottom-text {
+        margin-bottom: 40px;
+    }
+    
+    .margin-bottom-email {
+        margin-bottom: 100px;
+    }
+
+    .margin-bottom-table {
+        margin-bottom: 30px;
+    }
+}
