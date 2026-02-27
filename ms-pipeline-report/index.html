@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindStride — MS Pipeline Report</title>
+<style>
+  :root {
+    --blue: #1D7BFA; --blue-dark: #1557C0; --navy: #0D1F3C; --heading: #111827;
+    --body: #6B7280; --border: #E5E7EB; --bg: #F8FAFC; --ice: #EBF3FF;
+    --sky: #93BFFD; --green: #1F9E60; --amber: #D68910; --red: #B03A2E;
+    --white: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Calibri, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--heading); line-height: 1.55; }
+
+  /* === PASSCODE SCREEN === */
+  #lock-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+  }
+  #lock-screen.hidden { display: none; }
+  .lock-brand { font-size: 32px; font-weight: 700; color: var(--white); margin-bottom: 8px; letter-spacing: -0.5px; }
+  .lock-brand span { color: var(--sky); }
+  .lock-subtitle { color: var(--sky); font-size: 14px; margin-bottom: 32px; opacity: 0.8; }
+  .lock-box { background: var(--white); border-radius: 16px; padding: 36px 40px; width: 380px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .lock-box h2 { font-size: 20px; color: var(--navy); margin-bottom: 6px; }
+  .lock-box p { font-size: 13px; color: var(--body); margin-bottom: 20px; }
+  .lock-input { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 8px; font-size: 16px; text-align: center; letter-spacing: 4px; outline: none; transition: border-color 0.2s; }
+  .lock-input:focus { border-color: var(--blue); }
+  .lock-input.error { border-color: var(--red); animation: shake 0.4s ease; }
+  .lock-btn { width: 100%; margin-top: 16px; padding: 12px; background: var(--blue); color: var(--white); border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .lock-btn:hover { background: var(--blue-dark); }
+  .lock-error { color: var(--red); font-size: 13px; margin-top: 10px; min-height: 18px; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+
+  /* === REPORT === */
+  #report { display: none; }
+  #report.visible { display: block; }
+
+  .header { background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%); color: var(--white); padding: 28px 40px; }
+  .header-row { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .subtitle { color: var(--sky); font-size: 13px; margin-top: 4px; }
+  .header .brand { font-size: 22px; font-weight: 700; }
+  .header .brand span { color: var(--sky); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi { background: var(--white); border-radius: 10px; padding: 20px; border: 1px solid var(--border); text-align: center; }
+  .kpi .kpi-value { font-size: 28px; font-weight: 700; color: var(--blue); }
+  .kpi .kpi-label { font-size: 12px; color: var(--body); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .kpi-sub { font-size: 12px; color: var(--body); }
+  .kpi.kpi-highlight { border: 2px solid var(--green); background: linear-gradient(135deg, #f0fdf4 0%, var(--white) 100%); }
+  .kpi.kpi-highlight .kpi-value { color: var(--green); }
+
+  .section { background: var(--white); border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; border: 1px solid var(--border); }
+  .section h2 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 14px; border-bottom: 2px solid var(--blue); padding-bottom: 8px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--navy); color: var(--white); text-align: left; padding: 9px 12px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) td { background: var(--ice); }
+  tr:hover td { background: #dbeafe; }
+
+  /* === ACTIVITY SECTION === */
+  .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px; }
+  .activity-card { background: var(--bg); border-radius: 10px; padding: 18px 20px; border: 1px solid var(--border); }
+  .activity-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .activity-metric { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .activity-metric:last-child { border-bottom: none; }
+  .activity-metric .label { font-size: 12px; color: var(--body); }
+  .activity-metric .value { font-size: 18px; font-weight: 700; color: var(--heading); }
+  .activity-metric .change { font-size: 11px; font-weight: 600; margin-left: 6px; }
+  .change-up { color: var(--green); }
+  .change-down { color: var(--red); }
+  .activity-metric .val-row { display: flex; align-items: baseline; gap: 4px; }
+
+  .note-box { background: var(--ice); border-left: 4px solid var(--blue); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-top: 16px; font-size: 13px; color: var(--body); }
+  .note-box strong { color: var(--navy); }
+
+  .footer { text-align: center; padding: 24px; color: var(--body); font-size: 11px; }
+
+  @media (max-width: 768px) {
+    .kpi-row { grid-template-columns: 1fr; }
+    .activity-grid { grid-template-columns: 1fr; }
+    .header-row { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================== PASSCODE SCREEN ======================== -->
+<div id="lock-screen">
+  <div class="lock-brand">mind<span>stride</span></div>
+  <div class="lock-subtitle">Sales Pipeline Report</div>
+  <div class="lock-box">
+    <h2>Enter Passcode</h2>
+    <p>This report is protected. Enter the passcode to continue.</p>
+    <input type="password" id="passcode-input" class="lock-input" placeholder="••••••" maxlength="20" autofocus>
+    <button class="lock-btn" onclick="checkPasscode()">Unlock Report</button>
+    <div class="lock-error" id="lock-error"></div>
+  </div>
+</div>
+
+<!-- ======================== REPORT CONTENT ======================== -->
+<div id="report">
+
+<div class="header">
+  <div class="header-row">
+    <div>
+      <h1>MS Pipeline — Summary</h1>
+      <div class="subtitle">February 27, 2026 &bull; 26 Active Deals &bull; Source: HubSpot CRM</div>
+    </div>
+    <div class="brand">mind<span>stride</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- KPIs -->
+<div class="kpi-row">
+  <div class="kpi kpi-highlight">
+    <div class="kpi-value">CA$307.9K</div>
+    <div class="kpi-label">Existing Clients (ARR)</div>
+    <div class="kpi-sub">15 clients &bull; Avg CA$20.5K</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-value">CA$1.25M</div>
+    <div class="kpi-label">Total Pipeline</div>
+    <div class="kpi-sub">26 deals &bull; Avg CA$48.2K</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-value">CA$413.6K</div>
+    <div class="kpi-label">Next 90 Days</div>
+    <div class="kpi-sub">15 deals closing Mar&ndash;May</div>
+  </div>
+</div>
+
+<!-- B2B ACTIVITY (BARB & PAT) -->
+<div class="section">
+  <h2>B2B Activity (Barb &amp; Pat)</h2>
+  <div class="activity-grid">
+
+    <!-- Year to Date -->
+    <div class="activity-card">
+      <h4>Year to Date</h4>
+      <div class="activity-metric">
+        <span class="label">Emails Sent</span>
+        <div class="val-row"><span class="value">3,046</span><span class="change change-up">&#9650; 13,745%</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Calls</span>
+        <div class="val-row"><span class="value">292</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Meetings</span>
+        <div class="val-row"><span class="value">50</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Notes</span>
+        <div class="val-row"><span class="value">261</span><span class="change change-up">&#9650; 8.8%</span></div>
+      </div>
+    </div>
+
+    <!-- Month to Date -->
+    <div class="activity-card">
+      <h4>Month to Date</h4>
+      <div class="activity-metric">
+        <span class="label">Emails Sent</span>
+        <div class="val-row"><span class="value">1,875</span><span class="change change-up">&#9650; 60.1%</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Calls</span>
+        <div class="val-row"><span class="value">155</span><span class="change change-up">&#9650; 13.1%</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Meetings</span>
+        <div class="val-row"><span class="value">21</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">LinkedIn Msgs</span>
+        <div class="val-row"><span class="value">86</span><span class="change change-down">&#9660; 6.5%</span></div>
+      </div>
+    </div>
+
+    <!-- Week to Date -->
+    <div class="activity-card">
+      <h4>Week to Date</h4>
+      <div class="activity-metric">
+        <span class="label">Emails Sent</span>
+        <div class="val-row"><span class="value">249</span><span class="change change-down">&#9660; 75.4%</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Calls</span>
+        <div class="val-row"><span class="value">47</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Meetings</span>
+        <div class="val-row"><span class="value">7</span></div>
+      </div>
+      <div class="activity-metric">
+        <span class="label">Notes</span>
+        <div class="val-row"><span class="value">19</span><span class="change change-up">&#9650; 137.5%</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CLOSE DATE DISTRIBUTION -->
+<div class="section">
+  <h2>Close Date Distribution</h2>
+  <table>
+    <tr><th>Period</th><th># Deals</th><th>Value</th><th>% of Pipeline</th></tr>
+    <tr><td>Mar 2026</td><td>5</td><td>$32,364</td><td>2.6%</td></tr>
+    <tr><td>Apr 2026</td><td>9</td><td>$389,544</td><td>31.3%</td></tr>
+    <tr><td>May 2026</td><td>1</td><td>$50,000</td><td>4.0%</td></tr>
+    <tr><td>Jun 2026</td><td>5</td><td>$410,000</td><td>33.0%</td></tr>
+    <tr><td>Jul 2026</td><td>2</td><td>$205,000</td><td>16.5%</td></tr>
+    <tr><td>Aug 2026</td><td>2</td><td>$155,000</td><td>12.5%</td></tr>
+    <tr><td>Oct 2026</td><td>1</td><td>$10,000</td><td>0.8%</td></tr>
+    <tr style="font-weight:700;"><td>Total</td><td>26</td><td>$1,243,564</td><td>100%</td></tr>
+  </table>
+</div>
+
+<!-- NOTES -->
+<div class="note-box">
+  <strong>Notes:</strong> Cross-pipeline custom view combining active deals from Sales Pipeline, Salesforce Default Pipeline, and BZ - B2B Pipeline. Close dates updated 2/26/2026 during pipeline grooming (13 of 26 deals pushed forward). Existing Clients (ARR) sourced from HubSpot "Existing Clients" view (15 records, avg deal age 44 days).
+</div>
+
+</div>
+
+<div class="footer">
+  MindStride &bull; MS Pipeline Summary &bull; Updated Feb 27, 2026 &bull; Confidential
+</div>
+
+</div><!-- end #report -->
+
+<script>
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+const PASSCODE_HASH = '61f683978eec16f3f6d4378967171189c5c43bb3ef566b59a6d7aaa94f2bedc8';
+
+async function checkPasscode() {
+  const input = document.getElementById('passcode-input').value;
+  const hash = await sha256(input);
+
+  if (hash === PASSCODE_HASH) {
+    document.getElementById('lock-screen').classList.add('hidden');
+    document.getElementById('report').classList.add('visible');
+    sessionStorage.setItem('ms-pipeline-auth', 'true');
+  } else {
+    document.getElementById('passcode-input').classList.add('error');
+    document.getElementById('lock-error').textContent = 'Incorrect passcode. Please try again.';
+    setTimeout(() => {
+      document.getElementById('passcode-input').classList.remove('error');
+    }, 500);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('passcode-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkPasscode();
+  });
+  if (sessionStorage.getItem('ms-pipeline-auth') === 'true') {
+    document.getElementById('lock-screen').classList.add('hidden');
+    document.getElementById('report').classList.add('visible');
+  }
+});
+</script>
+</body>
+</html>
