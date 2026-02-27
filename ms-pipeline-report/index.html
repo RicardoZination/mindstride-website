@@ -59,6 +59,21 @@
       letter-spacing: -0.5px;
     }
 
+    .logo-container {
+      width: 100%;
+      max-width: 200px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
     .lock-brand span {
       color: var(--sky);
     }
@@ -401,7 +416,9 @@
 
   <!-- ======================== PASSCODE SCREEN ======================== -->
   <div id="lock-screen">
-    <div class="lock-brand">mind<span>stride</span></div>
+    <div class="logo-container">
+      <img src="../assets/logo-2.svg" alt="MindStride Logo" class="logo">
+    </div>
     <div class="lock-subtitle">Sales Pipeline Report</div>
     <div class="lock-box">
       <h2>Enter Passcode</h2>
@@ -421,7 +438,9 @@
           <h1>MS Pipeline — Summary</h1>
           <div class="subtitle">February 27, 2026 &bull; 26 Active Deals &bull; Source: HubSpot CRM</div>
         </div>
-        <div class="brand">mind<span>stride</span></div>
+        <div class="logo-container">
+          <img src="../assets/logo-2.svg" alt="MindStride Logo" class="logo">
+        </div>
       </div>
     </div>
 
