@@ -628,13 +628,16 @@
       return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    const PASSCODE_HASH = '61f683978eec16f3f6d4378967171189c5c43bb3ef566b59a6d7aaa94f2bedc8';
+    const PASSCODE_HASHES = [
+      '61f683978eec16f3f6d4378967171189c5c43bb3ef566b59a6d7aaa94f2bedc8',
+      '5e0febf4c69469c1f445103de2341f1b91d3121e44dc0bcf6f075ca13e4df72b'
+    ];
 
     async function checkPasscode() {
       const input = document.getElementById('passcode-input').value;
       const hash = await sha256(input);
 
-      if (hash === PASSCODE_HASH) {
+      if (PASSCODE_HASHES.includes(hash)) {
         document.getElementById('lock-screen').classList.add('hidden');
         document.getElementById('report').classList.add('visible');
         sessionStorage.setItem('ms-pipeline-auth', 'true');
