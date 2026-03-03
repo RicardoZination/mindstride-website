@@ -374,6 +374,42 @@
       gap: 4px;
     }
 
+    .info-row-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .info-row-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .info {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .info .info-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .info .info-label {
+      font-size: 12px;
+      color: var(--body);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
     .note-box {
       background: var(--ice);
       border-left: 4px solid var(--blue);
@@ -602,6 +638,66 @@
             <td>100%</td>
           </tr>
         </table>
+      </div>
+
+      <!-- INFO -->
+      <div class="info-row-2">
+        <div class="info">
+          <div class="info-label">Total Employees</div>
+          <div class="info-value">8281</div>
+        </div>
+        <div class="info">
+          <div class="info-label">Organizations</div>
+          <div class="info-value">18</div>
+        </div>
+      </div>
+
+      <div class="info-row-2">
+        <div class="info">
+          <div class="info-label">Registered Users</div>
+          <div class="info-value">2032</div>
+        </div>
+        <div class="info">
+          <div class="info-label">Activated Users</div>
+          <div class="info-value">725</div>
+        </div>
+      </div>
+
+      <div class="info-row-2">
+        <div class="info">
+          <div class="info-label">Onboarding Completed</div>
+          <div class="info-value">643/2032</div>
+        </div>
+        <div class="info">
+          <div class="info-label">Onboarding NOT Completed</div>
+          <div class="info-value">1389/2032</div>
+        </div>
+      </div>
+
+      <div class="info-row-3">
+        <div class="info">
+          <div class="info-label">Low-risk</div>
+          <div class="info-value">425</div>
+        </div>
+        <div class="info">
+          <div class="info-label">Moderate</div>
+          <div class="info-value">96</div>
+        </div>
+        <div class="info">
+          <div class="info-label">Critical</div>
+          <div class="info-value">63</div>
+        </div>
+      </div>
+
+      <div class="info-row-2">
+        <div class="info">
+          <div class="info-label">Assessments Assigned</div>
+          <div class="info-value">434</div>
+        </div>
+        <div class="info">
+          <div class="info-label">Interventions Assigned</div>
+          <div class="info-value">420</div>
+        </div>
       </div>
 
       <!-- NOTES -->
